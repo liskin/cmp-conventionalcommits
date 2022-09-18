@@ -80,9 +80,6 @@ function source:complete(request, callback)
   elseif request.context.option.reason == "auto" and request.context.cursor.row ==
       1 and request.context.cursor.col == 2 then
     callback({items = candidates(self.types), isIncomplete = true})
-  elseif request.context.cursor_after_line == ")" and request.context.cursor.row ==
-      1 then
-    callback({items = candidatesLernaScope(self.scopes), isIncomplete = true})
   else
     callback()
   end
