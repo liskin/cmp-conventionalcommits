@@ -63,12 +63,33 @@ function source:get_keyword_pattern() return [[\w\+]] end
 
 local function candidates(entries)
   local items = {}
-  for k, v in ipairs(entries) do
-    items[k] = {
+  for _, v in ipairs(entries) do
+    table.insert(items, {
       label = v.label,
       kind = require('cmp').lsp.CompletionItemKind.Keyword,
+      insertText = v.label .. ": ",
       documentation = v.documentation,
-    }
+    })
+    table.insert(items, {
+      label = v.label .. "!",
+      kind = require('cmp').lsp.CompletionItemKind.Keyword,
+      insertText = v.label .. "!: ",
+      documentation = "(breaking change)\n" .. v.documentation,
+    })
+    table.insert(items, {
+      label = v.label .. "(…)",
+      kind = require('cmp').lsp.CompletionItemKind.Snippet,
+      insertText = v.label .. "($0): ",
+      insertTextFormat = require('cmp').lsp.InsertTextFormat.Snippet,
+      documentation = "(scoped)\n" .. v.documentation,
+    })
+    table.insert(items, {
+      label = v.label .. "(…)!",
+      kind = require('cmp').lsp.CompletionItemKind.Snippet,
+      insertText = v.label .. "($0)!: ",
+      insertTextFormat = require('cmp').lsp.InsertTextFormat.Snippet,
+      documentation = "(breaking change, scoped)\n" .. v.documentation,
+    })
   end
   return items
 end
