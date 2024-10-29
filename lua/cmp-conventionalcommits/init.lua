@@ -75,7 +75,7 @@ end
 
 function source:complete(request, callback)
   if request.context.option.reason == "manual" and request.context.cursor.row ==
-      1 and request.context.cursor.col == 1 then
+      1 and request.context.cursor.col >= 1 and not request.context.cursor_before_line:find(" ") then
     callback({items = candidates(self.types), isIncomplete = true})
   elseif request.context.option.reason == "auto" and request.context.cursor.row ==
       1 and request.context.cursor.col == 2 then
