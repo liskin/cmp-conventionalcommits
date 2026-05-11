@@ -79,14 +79,14 @@ local function candidates(entries)
     table.insert(items, {
       label = v.label .. "(…)",
       kind = require('cmp').lsp.CompletionItemKind.Snippet,
-      insertText = v.label .. "($0): ",
+      insertText = v.label .. "($1): ",
       insertTextFormat = require('cmp').lsp.InsertTextFormat.Snippet,
       documentation = "(scoped)\n" .. v.documentation,
     })
     table.insert(items, {
       label = v.label .. "(…)!",
       kind = require('cmp').lsp.CompletionItemKind.Snippet,
-      insertText = v.label .. "($0)!: ",
+      insertText = v.label .. "($1)!: ",
       insertTextFormat = require('cmp').lsp.InsertTextFormat.Snippet,
       documentation = "(breaking change, scoped)\n" .. v.documentation,
     })
